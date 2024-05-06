@@ -50,7 +50,6 @@ createApp({
                 console.log(res.data);
             });
         }
-
     },
     mounted() {
         this.getData();
