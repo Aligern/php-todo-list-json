@@ -42,16 +42,17 @@ createApp({
             newComponent.id = nextId + 1;
             this.starShip.push(newComponent);
             this.componentText = '';
-            console.log(this.starShip);
+           // console.log(this.starShip);
         },
         getData(){
             axios.get(this.apiUrl).then((res) => {
                 //this.starShip = res.data;
                 console.log(res.data);
+                this.starShip = res.data;
             });
         }
     },
-    mounted() {
+    created() {
         this.getData();
-    }
+    },
 }).mount('#app');
