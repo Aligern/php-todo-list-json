@@ -7,7 +7,11 @@ createApp({
     data(){
         return {
             starShip:[],
-            componentText: '',
+            newComponent: {
+                id: "",
+                text: "",
+                done: false
+            },
             apiUrl: 'server.php',
             lastId: 5
         }
@@ -30,17 +34,23 @@ createApp({
         },
         addComponent() {
             const component = {...this.newComponent};
-            const newComponent = {
-                id: "",
-                text: "",
-                done: ""
-            };
             this.lastId += 1;
             component.id = this.lastId;
-            this.starShip.push(component);
-            axios.post(this.apiUrl, data).then((res) => {
+            const data = new FormData();
+            for (let key in component) {
+                data.append(key, component[key]);
+            }
+            axios
+            .post(this.apiUrl, data).then((res) => {
                 console.log(res.data);
+                this.starShip = res.data;
+                this.starShip.push(res.data);
+                this.lastId = this.starShip.length - 1;
             })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {});
         },
         getData(){
             axios.get(this.apiUrl).then((res) => {

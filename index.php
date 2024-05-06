@@ -73,7 +73,7 @@
               type="text"
               class="form-control"
               id="shiptext"
-              v-model="componentText"
+              v-model="newComponent.text"
               @keyup.enter="addComponent"
             />
 
