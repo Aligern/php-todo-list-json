@@ -8,7 +8,8 @@ createApp({
         return {
             starShip:[],
             componentText: '',
-            apiUrl: 'server.php'
+            apiUrl: 'server.php',
+            lastId: 5
         }
     },
     methods: {
@@ -28,21 +29,18 @@ createApp({
             }
         },
         addComponent() {
+            const component = {...this.newComponent};
             const newComponent = {
-                id: null,
-                text: this.componentText,
-                done: false
-            }
-            let nextId = 0;
-            this.starShip.forEach((el) => {
-                if(nextId < el.id) {
-                    nextId = el.id;
-                }
-            });
-            newComponent.id = nextId + 1;
-            this.starShip.push(newComponent);
-            this.componentText = '';
-           // console.log(this.starShip);
+                id: "",
+                text: "",
+                done: ""
+            };
+            this.lastId += 1;
+            component.id = this.lastId;
+            this.starShip.push(component);
+            axios.post(this.apiUrl, data).then((res) => {
+                console.log(res.data);
+            })
         },
         getData(){
             axios.get(this.apiUrl).then((res) => {
